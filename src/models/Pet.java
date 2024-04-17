@@ -67,8 +67,10 @@ public class Pet {
 
     private void applyDiseaseEffects() {
         if (currentDisease != Disease.NONE) {
-            int healthLoss = (int) (10 * currentDisease.getLossMultiplier());
-            updateStatus(Status.HEALTH, -healthLoss);
+            int currentValue = statusValues.getOrDefault(Status.HEALTH, 0);
+            int newValue = Math.max(currentValue - currentDisease.getLossMultiplier(), 0); // Ensure no negative values
+            int maxValue = calculateMaxValue(Status.HEALTH);
+            statusValues.put(Status.HEALTH, Math.min(newValue, maxValue)); // Ensure value does not exceed maximum
             System.out.println("O pet adquiriu uma doença: " + currentDisease.getDescription() + "! Saúde diminuiu.");
         }
     }

@@ -1,14 +1,14 @@
 package src.enums;
 
 public enum Disease {
-    NONE("None", 1.0),
-    MILD("Mild Disease", 2.0),
-    SEVERE("Severe Disease", 4.0);
+    NONE("None", 1),
+    MILD("Mild Disease", 2),
+    SEVERE("Severe Disease", 4);
 
     private final String description;
-    private final double lossMultiplier;
+    private final int lossMultiplier;
 
-    Disease(String description, double lossMultiplier) {
+    Disease(String description, int lossMultiplier) {
         this.description = description;
         this.lossMultiplier = lossMultiplier;
     }
@@ -17,7 +17,7 @@ public enum Disease {
         return description;
     }
 
-    public double getLossMultiplier() {
+    public int getLossMultiplier() {
         return lossMultiplier;
     }
 }
