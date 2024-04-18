@@ -87,7 +87,6 @@ public class Pet {
         }
     }
 
-    // Getters and setters
     public String getName() {
         return name;
     }

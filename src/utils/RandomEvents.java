@@ -9,9 +9,9 @@ public class RandomEvents {
     private static final Random random = new Random();
 
     public static void triggerRandomEvent(Pet pet) {
-        if (random.nextDouble() < 0.1) { // 10% chance of a random event
+        if (random.nextDouble() < 0.1) {
             String eventMessage = "";
-            switch (random.nextInt(5)) { // Assuming 5 different types of events
+            switch (random.nextInt(5)) {
                 case 0:
                     increaseHealth(pet);
                     eventMessage = "Evento aleatório: O pet encontrou um lugar calmo e se sentiu muito melhor!";
