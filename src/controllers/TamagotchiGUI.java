@@ -24,14 +24,12 @@ public class TamagotchiGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
 
-        // Inicializa stageLabel antes de usá-lo
         stageLabel = new JLabel();
         stageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         stageLabel.setVerticalAlignment(SwingConstants.TOP);
         stageLabel.setFont(new Font("Arial", Font.BOLD, 16));
         add(stageLabel, BorderLayout.SOUTH); // Adiciona o stageLabel na parte inferior da GUI
 
-        // Botões
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         buttonPanel.add(createButton("Feed Pet", new Color(102, 204, 255)));
         buttonPanel.add(createButton("Play with Pet", new Color(255, 178, 102)));
@@ -45,16 +43,13 @@ public class TamagotchiGUI extends JFrame {
         updateStatusLabel();
         add(statusLabel, BorderLayout.CENTER);
 
-        // Cria o JLabel para a etapa de vida
         stageLabel = new JLabel();
         stageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         stageLabel.setVerticalAlignment(SwingConstants.TOP);
         stageLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        add(stageLabel, BorderLayout.SOUTH); // Adiciona o stageLabel na parte inferior da GUI
-
+        add(stageLabel, BorderLayout.SOUTH);
         setVisible(true);
 
-        // Inicia o tempo passando
         startTimePassing();
     }
 
