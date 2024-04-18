@@ -37,7 +37,7 @@ public class TamagotchiGUI extends JFrame {
         buttonPanel.add(createButton("Play with Pet", new Color(255, 178, 102)));
         buttonPanel.add(createButton("Clean Pet", new Color(153, 255, 153)));
         buttonPanel.add(createButton("Rest Pet", new Color(255, 204, 229)));
-        buttonPanel.add(createButton("Show Pet Status", new Color(255, 255, 153)));
+        buttonPanel.add(createButton("Show Pet Status", new Color(0, 0, 102)));
 
         add(buttonPanel, BorderLayout.NORTH);
 
