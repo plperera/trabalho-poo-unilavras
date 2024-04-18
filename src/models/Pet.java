@@ -29,22 +29,20 @@ public class Pet {
 
     public void updateStatus(Status status, int change) {
         int currentValue = statusValues.getOrDefault(status, 0);
-        int newValue = Math.max(currentValue + change, 0); // Ensure no negative values
+        int newValue = Math.max(currentValue + change, 0);
         int maxValue = calculateMaxValue(status);
-        statusValues.put(status, Math.min(newValue, maxValue)); // Ensure value does not exceed maximum
+        statusValues.put(status, Math.min(newValue, maxValue));
 
         checkForStageUpdate();
         checkForDiseaseEffects();
-
-        // Verifica se o Pet morreu após a atualização do status
         checkForDeath();
     }
 
     private int calculateMaxValue(Status status) {
         return switch (status) {
-            case Status.HEALTH, Status.NUTRIENTS -> 100 * (int) stage.getGrowthMultiplier();
-            case Status.LIFESPAN -> 1000;
-            default -> 100; // All other statuses have a maximum of 100
+            case Status.HEALTH, Status.NUTRIENTS -> (int) Math.round(100 * stage.getGrowthMultiplier());
+            case Status.LIFESPAN -> 9999999;
+            default -> 100;
         };
     }
 
@@ -69,9 +67,9 @@ public class Pet {
     private void applyDiseaseEffects() {
         if (currentDisease != Disease.NONE) {
             int currentValue = statusValues.getOrDefault(Status.HEALTH, 0);
-            int newValue = Math.max(currentValue - currentDisease.getLossMultiplier(), 0); // Ensure no negative values
+            int newValue = Math.max(currentValue - currentDisease.getLossMultiplier(), 0);
             int maxValue = calculateMaxValue(Status.HEALTH);
-            statusValues.put(Status.HEALTH, Math.min(newValue, maxValue)); // Ensure value does not exceed maximum
+            statusValues.put(Status.HEALTH, Math.min(newValue, maxValue));
             System.out.println("O pet adquiriu uma doença: " + currentDisease.getDescription() + "! Saúde diminuiu.");
         }
     }

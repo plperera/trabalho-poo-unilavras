@@ -109,13 +109,11 @@ public class TamagotchiGUI extends JFrame {
             .append("</span>").append("<span style='color:blue;'>").append(changeString)
             .append("</span>").append("<br>");
             
-            // Atualize o valor anterior para o próximo cálculo
             previousStatusValues.put(status, currentValue);
         }
         statusText.append("</html>");
         statusLabel.setText(statusText.toString());
 
-        // Atualiza o stageLabel com a etapa de vida atual do pet
         if (stageLabel != null) {
             String stageDescription = pet.getStage().getDescription();
             stageLabel.setText("<html><h2>Etapa de Vida:</h2><b>" + stageDescription + "</b></html>");
@@ -126,9 +124,8 @@ public class TamagotchiGUI extends JFrame {
         Thread timePassingThread = new Thread(() -> {
             while (true) {
                 try {
-                    Thread.sleep(5000); // Simula 5 segundos passando
+                    Thread.sleep(5000);
                     SwingUtilities.invokeLater(() -> {
-                        // Atualiza o status do pet e a interface gráfica do usuário
                         petService.updateStatusAutomatically();
                         updateStatusLabel();
                     });
