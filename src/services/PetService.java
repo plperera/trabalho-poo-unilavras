@@ -52,6 +52,16 @@ public class PetService {
         }
     }
 
+    public void updateStatusAutomatically() {
+        pet.updateStatus(Status.NUTRIENTS, -1);
+        pet.updateStatus(Status.HAPPINESS, -1);
+        pet.updateStatus(Status.HEALTH, -1);
+        pet.updateStatus(Status.HYGIENE, -1);
+        pet.updateStatus(Status.SOCIALIZATION, -1);
+        pet.updateStatus(Status.LIFESPAN, 1);
+        RandomEvents.triggerRandomEvent(pet);
+    }
+
     public Pet getPet() {
         return pet;
     }

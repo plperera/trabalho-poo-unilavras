@@ -34,7 +34,6 @@ public class PetController {
         printPetStatus();
     }
 
-    // Método para imprimir o status do pet
     public void showPetStatus() {
         System.out.println("Current Pet Status:");
         for (Status status : Status.values()) {
@@ -44,6 +43,6 @@ public class PetController {
     }
 
     private void printPetStatus() {
-        showPetStatus(); // Reutilizando showPetStatus para impressão após cada ação
+        showPetStatus();
     }
 }

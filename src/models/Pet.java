@@ -42,7 +42,8 @@ public class Pet {
 
     private int calculateMaxValue(Status status) {
         return switch (status) {
-            case HEALTH, NUTRIENTS -> 100 * (int) stage.getGrowthMultiplier();
+            case Status.HEALTH, Status.NUTRIENTS -> 100 * (int) stage.getGrowthMultiplier();
+            case Status.LIFESPAN -> 1000;
             default -> 100; // All other statuses have a maximum of 100
         };
     }

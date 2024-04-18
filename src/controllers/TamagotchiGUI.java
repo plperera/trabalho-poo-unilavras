@@ -13,6 +13,7 @@ public class TamagotchiGUI extends JFrame {
     private Pet pet;
     private PetService petService;
     private JLabel statusLabel;
+    private JLabel stageLabel;
     private Map<Status, Integer> previousStatusValues = new EnumMap<>(Status.class);
 
     public TamagotchiGUI(Pet pet) {
@@ -22,6 +23,13 @@ public class TamagotchiGUI extends JFrame {
         setMinimumSize(new Dimension(600, 400));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
+
+        // Inicializa stageLabel antes de usá-lo
+        stageLabel = new JLabel();
+        stageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        stageLabel.setVerticalAlignment(SwingConstants.TOP);
+        stageLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        add(stageLabel, BorderLayout.SOUTH); // Adiciona o stageLabel na parte inferior da GUI
 
         // Botões
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -33,12 +41,21 @@ public class TamagotchiGUI extends JFrame {
 
         add(buttonPanel, BorderLayout.NORTH);
 
-        // Status Label
         statusLabel = createStatusLabel();
-        updateStatusLabel(); // Para inicializar com os valores atuais
+        updateStatusLabel();
         add(statusLabel, BorderLayout.CENTER);
 
+        // Cria o JLabel para a etapa de vida
+        stageLabel = new JLabel();
+        stageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        stageLabel.setVerticalAlignment(SwingConstants.TOP);
+        stageLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        add(stageLabel, BorderLayout.SOUTH); // Adiciona o stageLabel na parte inferior da GUI
+
         setVisible(true);
+
+        // Inicia o tempo passando
+        startTimePassing();
     }
 
     private JButton createButton(String text, Color backgroundColor) {
@@ -74,10 +91,9 @@ public class TamagotchiGUI extends JFrame {
                 petService.restPet();
                 break;
             case "Show Pet Status":
-                // Pode ser necessário apenas chamar o updateStatusLabel se os status são automaticamente atualizados
                 break;
         }
-        updateStatusLabel(); // Atualizar status após cada ação
+        updateStatusLabel();
     }
 
     private void updateStatusLabel() {
@@ -98,6 +114,30 @@ public class TamagotchiGUI extends JFrame {
         }
         statusText.append("</html>");
         statusLabel.setText(statusText.toString());
+
+        // Atualiza o stageLabel com a etapa de vida atual do pet
+        if (stageLabel != null) {
+            String stageDescription = pet.getStage().getDescription();
+            stageLabel.setText("<html><h2>Etapa de Vida:</h2><b>" + stageDescription + "</b></html>");
+        }
     }
     
+    private void startTimePassing() {
+        Thread timePassingThread = new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(5000); // Simula 5 segundos passando
+                    SwingUtilities.invokeLater(() -> {
+                        // Atualiza o status do pet e a interface gráfica do usuário
+                        petService.updateStatusAutomatically();
+                        updateStatusLabel();
+                    });
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    System.out.println("Time passing thread was interrupted.");
+                }
+            }
+        });
+        timePassingThread.start();
+    }
 }
